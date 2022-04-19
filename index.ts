@@ -7,7 +7,7 @@ import quizRoutes from "./routes/quizzes";
 
 const app = express();
 
-app.use("/quiz", quizRoutes);
+app.use("/quizzes", quizRoutes);
 
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
