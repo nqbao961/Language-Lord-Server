@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
+import { IQuiz } from "../models";
 import Quiz from "../models/quiz";
 
 export const getQuizzes = async (req: Request, res: Response) => {
@@ -25,7 +26,7 @@ export const getQuiz = async (req: Request, res: Response) => {
 };
 
 export const createQuiz = async (req: Request, res: Response) => {
-  const quiz = req.body;
+  const quiz: IQuiz = req.body;
 
   const newQuiz = new Quiz(quiz);
   try {
@@ -39,16 +40,35 @@ export const createQuiz = async (req: Request, res: Response) => {
 
 export const updateQuiz = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { title, message, creator, selectedFile, tags } = req.body;
+  const {
+    type,
+    content,
+    answer,
+    explaination,
+    choices,
+    info,
+    levelId,
+    levelNumber,
+  } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No quiz with id: ${id}`);
 
-  const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+  const updatedQuiz = {
+    type,
+    content,
+    answer,
+    explaination,
+    choices,
+    info,
+    levelId,
+    levelNumber,
+    _id: id,
+  };
 
-  await Quiz.findByIdAndUpdate(id, updatedPost, { new: true });
+  await Quiz.findByIdAndUpdate(id, updatedQuiz, { new: true });
 
-  res.json(updatedPost);
+  res.json(updatedQuiz);
 };
 
 export const deleteQuiz = async (req: Request, res: Response) => {
