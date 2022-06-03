@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { IQuiz } from ".";
 
 const quizSchema = new mongoose.Schema({
   type: {
@@ -21,10 +22,10 @@ const quizSchema = new mongoose.Schema({
     default: undefined,
   },
   createdAt: { type: Date, default: Date.now },
-  levelId: String,
+  levelId: { type: mongoose.Schema.Types.ObjectId, ref: "Level" },
   levelNumber: Number,
 });
 
-const Quiz = mongoose.model("Quiz", quizSchema);
+const Quiz = mongoose.model<IQuiz>("Quiz", quizSchema);
 
 export default Quiz;

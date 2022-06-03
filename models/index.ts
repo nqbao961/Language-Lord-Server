@@ -8,3 +8,8 @@ export interface IQuiz {
   levelId?: string;
   levelNumber?: number;
 }
+
+export interface ILevel {
+  levelNumber: number;
+  quizIds: string[];
+}
