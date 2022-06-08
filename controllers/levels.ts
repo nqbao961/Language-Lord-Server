@@ -5,18 +5,9 @@ import Quiz from "../models/quiz";
 
 export const getLevels = async (req: Request, res: Response) => {
   try {
-    const levels = await Level.find();
-    const levelsWithQuiz = [];
-    if (levels.length > 0) {
-      for (const level of levels) {
-        const levelWithQuiz: any = { ...level };
-        const quizzes = await level.populate("quizIds");
-        levelWithQuiz.quizzes = quizzes;
-        levelsWithQuiz.push(levelWithQuiz);
-      }
-    }
+    const levels = await Level.find().populate("quizList");
 
-    res.status(200).json(levelsWithQuiz);
+    res.status(200).json(levels);
   } catch (error: any) {
     res.status(404).json({ message: error.message });
   }
@@ -27,24 +18,39 @@ export const getLevel = async (req: Request, res: Response) => {
 
   try {
     const level = await Level.findById(id);
-    const levelWithQuiz: any = { ...level };
     if (level) {
-      const quizzes = await level.populate("quizIds");
-      levelWithQuiz.quizzes = quizzes;
-    }
-
-    res.status(200).json(levelWithQuiz);
+      const levelWithQuiz = await level.populate("quizList");
+      res.status(200).json(levelWithQuiz);
+    } else res.status(404).send(`No level with id: ${id}`);
   } catch (error: any) {
     res.status(404).json({ message: error.message });
   }
 };
 
 export const createLevel = async (req: Request, res: Response) => {
-  const level = req.body;
+  const level = req.body as {
+    levelNumber: number;
+    quizList: mongoose.Types.ObjectId[];
+  };
 
   const newLevel = new Level(level);
   try {
-    await newLevel.save();
+    const findLevel = await Level.findOne({ levelNumber: level.levelNumber });
+
+    if (!findLevel) {
+      await newLevel.save((_, createdLevel) => {
+        level.quizList.forEach((quiz) => {
+          Quiz.findByIdAndUpdate(quiz, {
+            levelId: createdLevel._id,
+            levelNumber: level.levelNumber,
+          }).exec();
+        });
+      });
+    } else {
+      return res
+        .status(404)
+        .send(`Duplicate level with number: ${level.levelNumber}`);
+    }
 
     res.status(201).json(newLevel);
   } catch (error: any) {

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "nodemon --config nodemon.json index.ts"
+    "start": "nodemon --config nodemon.json --inspect index.ts"
   },
   "license": "MIT",
   "dependencies": {
