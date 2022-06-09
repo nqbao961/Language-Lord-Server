@@ -38,21 +38,20 @@ export const createLevel = async (req: Request, res: Response) => {
     const findLevel = await Level.findOne({ levelNumber: level.levelNumber });
 
     if (!findLevel) {
-      await newLevel.save((_, createdLevel) => {
-        level.quizList.forEach((quiz) => {
-          Quiz.findByIdAndUpdate(quiz, {
-            levelId: createdLevel._id,
-            levelNumber: level.levelNumber,
-          }).exec();
-        });
-      });
+      for (const quiz of level.quizList) {
+        await Quiz.findByIdAndUpdate(quiz, {
+          levelId: newLevel._id,
+          levelNumber: level.levelNumber,
+        }).exec();
+      }
+      await newLevel.save();
+
+      res.status(201).json(newLevel);
     } else {
       return res
         .status(404)
         .send(`Duplicate level with number: ${level.levelNumber}`);
     }
-
-    res.status(201).json(newLevel);
   } catch (error: any) {
     res.status(409).json({ message: error.message });
   }
