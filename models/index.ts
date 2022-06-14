@@ -5,7 +5,7 @@ export interface IQuiz {
   explaination?: string;
   choices?: string[];
   info?: string;
-  levelId?: string;
+  levelId?: number;
   levelNumber?: number;
 }
 

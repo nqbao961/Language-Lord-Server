@@ -22,7 +22,7 @@ const quizSchema = new mongoose.Schema({
     default: undefined,
   },
   createdAt: { type: Date, default: Date.now },
-  levelId: { type: mongoose.Schema.Types.ObjectId, ref: "Level" },
+  levelId: { type: Number, ref: "Level" },
   levelNumber: Number,
 });
 

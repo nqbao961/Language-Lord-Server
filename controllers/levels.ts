@@ -33,7 +33,7 @@ export const createLevel = async (req: Request, res: Response) => {
     quizList: mongoose.Types.ObjectId[];
   };
 
-  const newLevel = new Level(level);
+  const newLevel = new Level({ ...level, _id: level.levelNumber });
   try {
     const findLevel = await Level.findOne({ levelNumber: level.levelNumber });
 
