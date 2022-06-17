@@ -4,16 +4,21 @@ import { IQuiz } from "../models";
 import Quiz from "../models/quiz";
 
 export const getQuizzes = async (req: Request, res: Response) => {
-  const { notInLevel }: { notInLevel?: boolean } = req.query;
+  const {
+    notInLevel,
+    lang,
+  }: { notInLevel?: boolean; lang?: IQuiz["language"] } = req.query;
 
-  const filter = notInLevel
-    ? {
-        $or: [
-          { levelNumber: { $exists: false } },
-          { levelNumber: { $type: "null" } },
-        ],
-      }
-    : {};
+  const filter = {
+    ...(notInLevel && {
+      $or: [
+        { levelNumber: { $exists: false } },
+        { levelNumber: { $type: "null" } },
+      ],
+    }),
+    language: lang,
+  };
+  console.log(filter);
 
   try {
     const quizzes = await Quiz.find(filter);

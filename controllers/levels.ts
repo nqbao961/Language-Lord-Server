@@ -4,8 +4,10 @@ import Level from "../models/level";
 import Quiz from "../models/quiz";
 
 export const getLevels = async (req: Request, res: Response) => {
+  const { lang } = req.query;
+
   try {
-    const levels = await Level.find().populate("quizList");
+    const levels = await Level.find({ language: lang }).populate("quizList");
 
     res.status(200).json(levels);
   } catch (error: any) {
@@ -28,14 +30,16 @@ export const getLevel = async (req: Request, res: Response) => {
 };
 
 export const createLevel = async (req: Request, res: Response) => {
+  const { lang } = req.query;
   const level = req.body as {
     levelNumber: number;
     quizList: mongoose.Types.ObjectId[];
   };
 
-  const newLevel = new Level({ ...level, _id: level.levelNumber });
+  const _id = `${lang}-${level.levelNumber}`;
+  const newLevel = new Level({ ...level, _id });
   try {
-    const findLevel = await Level.findOne({ levelNumber: level.levelNumber });
+    const findLevel = await Level.findById(_id);
 
     if (!findLevel) {
       for (const quiz of level.quizList) {
