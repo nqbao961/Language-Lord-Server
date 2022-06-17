@@ -18,7 +18,6 @@ export const getQuizzes = async (req: Request, res: Response) => {
     }),
     language: lang,
   };
-  console.log(filter);
 
   try {
     const quizzes = await Quiz.find(filter);

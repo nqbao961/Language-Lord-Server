@@ -37,7 +37,7 @@ export const createLevel = async (req: Request, res: Response) => {
   };
 
   const _id = `${lang}-${level.levelNumber}`;
-  const newLevel = new Level({ ...level, _id });
+  const newLevel = new Level({ ...level, _id, language: lang });
   try {
     const findLevel = await Level.findById(_id);
 

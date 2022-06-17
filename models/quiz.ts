@@ -22,10 +22,11 @@ const quizSchema = new mongoose.Schema({
     default: undefined,
   },
   createdAt: { type: Date, default: Date.now },
-  levelId: { type: Number, ref: "Level" },
+  levelId: { type: String, ref: "Level" },
   levelNumber: Number,
   language: {
     type: String,
+    enum: ["en", "vi"],
     required: true,
   },
 });
