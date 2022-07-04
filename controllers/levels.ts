@@ -29,6 +29,20 @@ export const getLevel = async (req: Request, res: Response) => {
   }
 };
 
+export const getLevelTotal = async (req: Request, res: Response) => {
+  try {
+    const en = await Level.count({ language: "en" });
+    const vi = await Level.count({ language: "vi" });
+
+    res.status(200).json({
+      en,
+      vi,
+    });
+  } catch (error: any) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const createLevel = async (req: Request, res: Response) => {
   const { lang } = req.query;
   const level = req.body as {
