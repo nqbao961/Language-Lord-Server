@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { QuizzesService } from './quizzes.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
+import { GetQuizzesDto } from './dto/get-quizzes.dto';
 
 @Controller('quizzes')
 export class QuizzesController {
@@ -13,22 +23,22 @@ export class QuizzesController {
   }
 
   @Get()
-  findAll() {
-    return this.quizzesService.findAll();
+  findAll(@Query() query: GetQuizzesDto) {
+    return this.quizzesService.findAll(query);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.quizzesService.findOne(+id);
+    return this.quizzesService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateQuizDto: UpdateQuizDto) {
-    return this.quizzesService.update(+id, updateQuizDto);
+    return this.quizzesService.update(id, updateQuizDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.quizzesService.remove(+id);
+    return this.quizzesService.remove(id);
   }
 }

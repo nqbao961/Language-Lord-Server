@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import mongoose from 'mongoose';
-import { Quiz } from './quiz.schema';
+import { Quiz } from 'src/quizzes/schemas/quiz.schema';
 
 export type LevelDocument = Level & Document;
 
@@ -18,6 +18,9 @@ export class Level {
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }] })
   quizList: Quiz[];
+
+  @Prop()
+  levelNumber: number;
 }
 
 export const LevelSchema = SchemaFactory.createForClass(Level);

@@ -7,7 +7,11 @@ import { QuizzesModule } from './quizzes/quizzes.module';
 import { LevelsModule } from './levels/levels.module';
 
 @Module({
-  imports: [QuizzesModule, MongooseModule.forRoot(CONNECTION_URL), LevelsModule],
+  imports: [
+    MongooseModule.forRoot(CONNECTION_URL),
+    QuizzesModule,
+    LevelsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
