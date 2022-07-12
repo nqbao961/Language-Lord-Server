@@ -1,3 +1,8 @@
+/// <reference types="passport" />
+import { Request } from 'express';
 export declare class AppService {
-    getHello(): string;
+    googleLogin(request: Request): "No user from google" | {
+        message: string;
+        user: Express.User;
+    };
 }

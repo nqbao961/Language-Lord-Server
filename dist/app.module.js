@@ -11,20 +11,22 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const config_1 = require("./config");
 const quizzes_module_1 = require("./quizzes/quizzes.module");
 const levels_module_1 = require("./levels/levels.module");
+const config_1 = require("@nestjs/config");
+const google_strategy_1 = require("./google.strategy");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot(config_1.CONNECTION_URL),
+            config_1.ConfigModule.forRoot(),
+            mongoose_1.MongooseModule.forRoot(process.env.CONNECTION_URL),
             quizzes_module_1.QuizzesModule,
             levels_module_1.LevelsModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [app_service_1.AppService, google_strategy_1.GoogleStrategy],
     })
 ], AppModule);
 exports.AppModule = AppModule;
