@@ -14,36 +14,48 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
-const passport_1 = require("@nestjs/passport");
-const app_service_1 = require("./app.service");
+const google_auth_guard_1 = require("./auth/guards/google-auth.guard");
+const auth_service_1 = require("./auth/auth.service");
+const jwt_auth_guard_1 = require("./auth/guards/jwt-auth.guard");
 let AppController = class AppController {
-    constructor(appService) {
-        this.appService = appService;
+    constructor(authService) {
+        this.authService = authService;
     }
     async googleAuth(request) { }
     googleAuthRedirect(request) {
-        return this.appService.googleLogin(request);
+        return this.authService.googleLogin(request);
+    }
+    getProfile(request) {
+        return request.user;
     }
 };
 __decorate([
-    (0, common_1.Get)(),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
+    (0, common_1.Get)('google/login'),
+    (0, common_1.UseGuards)(google_auth_guard_1.GoogleAuthGuard),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "googleAuth", null);
 __decorate([
-    (0, common_1.Get)('redirect'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
+    (0, common_1.Get)('google/redirect'),
+    (0, common_1.UseGuards)(google_auth_guard_1.GoogleAuthGuard),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "googleAuthRedirect", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('profile'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "getProfile", null);
 AppController = __decorate([
-    (0, common_1.Controller)('google'),
-    __metadata("design:paramtypes", [app_service_1.AppService])
+    (0, common_1.Controller)(),
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AppController);
 exports.AppController = AppController;
 //# sourceMappingURL=app.controller.js.map

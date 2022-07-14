@@ -1,12 +1,13 @@
 /// <reference types="passport" />
-import { AppService } from './app.service';
 import { Request } from 'express';
+import { AuthService } from './auth/auth.service';
 export declare class AppController {
-    private readonly appService;
-    constructor(appService: AppService);
+    private authService;
+    constructor(authService: AuthService);
     googleAuth(request: Request): Promise<void>;
     googleAuthRedirect(request: Request): "No user from google" | {
-        message: string;
-        user: Express.User;
+        token: string;
+        user: any;
     };
+    getProfile(request: Request): Express.User;
 }

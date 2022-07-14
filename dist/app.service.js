@@ -9,15 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
 let AppService = class AppService {
-    googleLogin(request) {
-        if (!request.user) {
-            return 'No user from google';
-        }
-        return {
-            message: 'User information from google',
-            user: request.user,
-        };
-    }
 };
 AppService = __decorate([
     (0, common_1.Injectable)()

@@ -14,7 +14,8 @@ const app_service_1 = require("./app.service");
 const quizzes_module_1 = require("./quizzes/quizzes.module");
 const levels_module_1 = require("./levels/levels.module");
 const config_1 = require("@nestjs/config");
-const google_strategy_1 = require("./google.strategy");
+const auth_module_1 = require("./auth/auth.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -24,9 +25,11 @@ AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot(process.env.CONNECTION_URL),
             quizzes_module_1.QuizzesModule,
             levels_module_1.LevelsModule,
+            users_module_1.UsersModule,
+            auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, google_strategy_1.GoogleStrategy],
+        providers: [app_service_1.AppService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

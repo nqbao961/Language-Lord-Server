@@ -12,9 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GoogleStrategy = void 0;
 const passport_1 = require("@nestjs/passport");
 const passport_google_oauth20_1 = require("passport-google-oauth20");
-const dotenv_1 = require("dotenv");
 const common_1 = require("@nestjs/common");
-(0, dotenv_1.config)();
 let GoogleStrategy = class GoogleStrategy extends (0, passport_1.PassportStrategy)(passport_google_oauth20_1.Strategy, 'google') {
     constructor() {
         super({
@@ -25,11 +23,10 @@ let GoogleStrategy = class GoogleStrategy extends (0, passport_1.PassportStrateg
         });
     }
     async validate(accessToken, refreshToken, profile, done) {
-        const { name, emails, photos } = profile;
+        const { displayName, emails, photos } = profile;
         const user = {
             email: emails[0].value,
-            firstName: name.givenName,
-            lastName: name.familyName,
+            name: displayName,
             picture: photos[0].value,
             accessToken,
         };
