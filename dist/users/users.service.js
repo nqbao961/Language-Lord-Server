@@ -31,10 +31,7 @@ let UsersService = class UsersService {
     async findOne(id) {
         const user = await this.userModel.findById(id).exec();
         if (!user) {
-            throw new common_1.HttpException({
-                status: common_1.HttpStatus.BAD_REQUEST,
-                error: `No user with id: ${id}`,
-            }, common_1.HttpStatus.BAD_REQUEST);
+            return null;
         }
         return user;
     }
