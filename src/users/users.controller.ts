@@ -29,6 +29,11 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get('rank')
+  getRank() {
+    return this.usersService.getRank();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);

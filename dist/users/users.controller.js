@@ -28,6 +28,9 @@ let UsersController = class UsersController {
     findAll() {
         return this.usersService.findAll();
     }
+    getRank() {
+        return this.usersService.getRank();
+    }
     findOne(id) {
         return this.usersService.findOne(id);
     }
@@ -51,6 +54,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('rank'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "getRank", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),

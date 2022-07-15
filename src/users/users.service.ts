@@ -41,4 +41,20 @@ export class UsersService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
+
+  async getRank() {
+    const rankEn = await this.userModel
+      .find()
+      .sort({ 'score.en': 'desc' })
+      .exec();
+    const rankVi = await this.userModel
+      .find()
+      .sort({ 'score.vi': 'desc' })
+      .exec();
+
+    return {
+      en: rankEn,
+      vi: rankVi,
+    };
+  }
 }

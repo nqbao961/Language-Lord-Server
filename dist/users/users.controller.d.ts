@@ -9,6 +9,14 @@ export declare class UsersController {
         _id: import("mongoose").Types.ObjectId;
     }>;
     findAll(): string;
+    getRank(): Promise<{
+        en: (User & import("mongoose").Document<any, any, any> & {
+            _id: import("mongoose").Types.ObjectId;
+        })[];
+        vi: (User & import("mongoose").Document<any, any, any> & {
+            _id: import("mongoose").Types.ObjectId;
+        })[];
+    }>;
     findOne(id: string): Promise<User & import("mongoose").Document<any, any, any> & {
         _id: import("mongoose").Types.ObjectId;
     }>;

@@ -16,4 +16,12 @@ export declare class UsersService {
         _id: import("mongoose").Types.ObjectId;
     }>;
     remove(id: number): string;
+    getRank(): Promise<{
+        en: (import("./schemas/user.schemas").User & import("mongoose").Document<any, any, any> & {
+            _id: import("mongoose").Types.ObjectId;
+        })[];
+        vi: (import("./schemas/user.schemas").User & import("mongoose").Document<any, any, any> & {
+            _id: import("mongoose").Types.ObjectId;
+        })[];
+    }>;
 }
