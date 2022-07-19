@@ -47,11 +47,11 @@ let UsersService = class UsersService {
     async getRank() {
         const rankEn = await this.userModel
             .find()
-            .sort({ 'score.en': 'desc' })
+            .sort({ 'score.en': 'desc', 'hint.en': 'desc' })
             .exec();
         const rankVi = await this.userModel
             .find()
-            .sort({ 'score.vi': 'desc' })
+            .sort({ 'score.vi': 'desc', 'hint.vi': 'desc' })
             .exec();
         return {
             en: rankEn,
