@@ -1,7 +1,7 @@
-import { Quiz } from 'src/quizzes/entities/quiz.entity';
-import { Languages } from 'src/typings';
+import { Quiz } from '../../quizzes/entities/quiz.entity';
+import { Languages } from '../../typings';
 export interface Level {
-    levelNumber: number;
-    quizList: Quiz[];
-    language: Languages;
+  levelNumber: number;
+  quizList: Quiz[];
+  language: Languages;
 }

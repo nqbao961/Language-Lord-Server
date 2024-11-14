@@ -3,7 +3,7 @@ import { LevelsService } from './levels.service';
 import { LevelsController } from './levels.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LevelSchema } from './schemas/level.schema';
-import { QuizSchema } from 'src/quizzes/schemas/quiz.schema';
+import { QuizSchema } from '../quizzes/schemas/quiz.schema';
 
 @Module({
   imports: [

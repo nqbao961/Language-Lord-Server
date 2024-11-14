@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import mongoose from 'mongoose';
-import { Quiz } from 'src/quizzes/schemas/quiz.schema';
+import { Quiz } from '../../quizzes/schemas/quiz.schema';
 
 export type LevelDocument = Level & Document;
 

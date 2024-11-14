@@ -1,4 +1,4 @@
-import { Languages, QuizTypes } from 'src/typings';
+import { Languages, QuizTypes } from '../../typings';
 
 export class CreateQuizDto {
   type: QuizTypes;

@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { QuizDocument } from 'src/quizzes/schemas/quiz.schema';
+import { QuizDocument } from '../quizzes/schemas/quiz.schema';
 import { CreateLevelDto } from './dto/create-level.dto';
 import { GetLevelsDto } from './dto/get-levels.dto';
 import { UpdateLevelDto } from './dto/update-level.dto';
